@@ -1,4 +1,4 @@
-// api/hikaye.js - Gemini 1.5 Flash ile (ücretsiz tier'da çalışıyor)
+// api/hikaye.js - Gemini 2.5 Flash ile (ücretsiz tier'da çalışıyor - Aralık 2025)
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const { prompt } = req.body;
 
   const geminiRes = await fetch(
-    `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
