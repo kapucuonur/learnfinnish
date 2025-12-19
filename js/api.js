@@ -21,19 +21,16 @@ export async function hikayeUret(konu = '') {
 }
 
 export async function kelimeyiCevir(kelime, hedefDil = 'tr') {
-  const source = 'fi'; // Hikaye Fince olduğu için kaynak her zaman fi
+  const langPair = hedefDil === 'tr' ? 'fi|tr' : 'fi|en';
 
-  const response = await fetch(LIBRETRANSLATE_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      q: kelime,
-      source: source,
-      target: hedefDil, // tr veya en
-      format: 'text'
-    }),
-    headers: { 'Content-Type': 'application/json' }
-  });
+  const response = await fetch(
+    `https://api.mymemory.translated.net/get?q=${encodeURIComponent(kelime)}&langpair=${langPair}`
+  );
+
+  if (!response.ok) {
+    throw new Error('Çeviri hatası');
+  }
 
   const data = await response.json();
-  return data.translatedText || 'Çeviri bulunamadı';
+  return data.responseData.translatedText || 'Çeviri bulunamadı';
 }
