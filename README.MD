@@ -1,3 +1,9 @@
+Tamam, sorun şu: README.md içindeki yapı eski haliyle yazılmış (`src/` klasörü var), ama biz az önce tüm dosyaları köke taşıdık. Bu yüzden GitHub’da README’deki yapı artık gerçek proje yapısıyla uyuşmuyor ve “messy” görünüyor.
+
+Hemen düzeltiyoruz! Aşağıdaki **yeni README.md** içeriğini tamamen kopyala ve projenin kökündeki `README.md` dosyasını bununla değiştir.
+
+### Yeni README.md (Güncel, Temiz Yapıya Uygun – İngilizce)
+
 ```markdown
 # FincaLearn
 
@@ -7,103 +13,83 @@ Perfect for immersive language practice – read fun stories and learn vocabular
 
 ## Features
 
-- Bilingual interface (Turkish ↔ English)
+- Bilingual interface (Türkçe ↔ English)
 - Generate random or topic-based stories using Google Gemini
 - Tap any word in the story to see its translation (TR → EN or EN → TR)
 - Fully responsive – works great on mobile and desktop
 - Progressive Web App – installable on phone home screen (feels like a native app)
 - Offline support for cached assets
-- No backend required for personal use; secure serverless proxy for public deployment
+- Secure: API key never exposed (uses Vercel serverless proxy)
 
 ## Project Structure
 ```
 
-fincalaarn/ ← Root folder (your project name)
+fincalaarn/ ← Project root (clean & Vercel-ready)
 │
-├── src/ ← All frontend files (served to the browser)
-│ ├── index.html ← Main page
-│ ├── manifest.json ← PWA manifest (for "Add to Home Screen")
-│ │
-│ ├── css/
-│ │ └── style.css ← All styles
-│ │
-│ └── js/
-│ ├── main.js ← Main app logic + language switching
+├── index.html ← Main HTML page
+├── manifest.json ← PWA manifest (for "Add to Home Screen")
+│
+├── css/
+│ └── style.css ← All styles (responsive design)
+│
+├── js/
+│ ├── main.js ← App logic & language switching
 │ ├── api.js ← Frontend API calls (proxy + translation)
-│ └── dom.js ← DOM manipulation (story rendering, popups)
+│ └── dom.js ← Story rendering, word clicks, popup
 │
-├── api/ ← Vercel serverless functions (backend)
-│ └── hikaye.js ← Secure proxy that uses your Gemini API key
+├── api/
+│ └── hikaye.js ← Vercel serverless function (secure Gemini proxy)
 │
-├── .gitignore ← Prevents accidental commits (e.g., local env files)
-├── README.md ← Documentation (English)
-└── (NO .env file here!) ← See explanation below
+├── .gitignore
+└── README.md ← This file
 
 ```
 
 ## Live Demo
 
-(After deployment)
-https://your-project-name.vercel.app
+After deployment: https://your-project-name.vercel.app
 
-You can add it to your phone's home screen for instant access!
+Open on your phone → Menu → "Add to Home Screen" → Use it like a real app!
 
 ## How It Works
 
 1. Choose language (Türkçe / English)
 2. (Optional) Enter a story topic
 3. Click "Generate New Story"
-4. Read the story and tap any word → instant translation appears
-5. Switch languages anytime – the story and translations adapt automatically
+4. Read the story and tap any word → instant translation popup
+5. Switch languages anytime – everything adapts automatically
 
-## Setup & Deployment (Public Online Version)
+## Deployment (Vercel – Free & Easy)
 
-### Prerequisites
-- GitHub account
-- Vercel account (free)
-- Google Gemini API key (get it free from [Google AI Studio](https://aistudio.google.com/app/apikey))
+1. Fork or push this repo to GitHub
+2. Go to [vercel.com](https://vercel.com) → New Project → Import your repo
+3. In Project Settings → Environment Variables:
+   - Add:
+     **Name:** `GEMINI_API_KEY`
+     **Value:** Your key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+4. Deploy! Vercel handles everything automatically.
 
-### Steps
+## Local Development
 
-1. **Fork or clone** this repository
-2. Get your Gemini API key from Google AI Studio
-3. Deploy to Vercel:
-   - Go to [vercel.com](https://vercel.com)
-   - Click "New Project"
-   - Import your GitHub repo
-   - In Project Settings → Environment Variables:
-     - Add key: `GEMINI_API_KEY`
-     - Value: your Gemini API key (it will be hidden and secure)
-   - Deploy! Vercel will give you a live URL
+- No npm, no build tools needed (pure HTML/CSS/JS)
+- Open with VS Code + Live Server extension, or any local server
+- For local testing only: you can temporarily modify `api/hikaye.js` to use a local key (never commit it)
 
-4. Open the URL on your phone → "Add to Home Screen" → enjoy your personal language learning app!
+## Technologies
 
-## Local Development (Personal Use Only)
-
-If you only want to use it yourself (no sharing):
-
-1. Clone the repo
-2. In `src/js/api.js`, temporarily replace the proxy call with direct Gemini call (for testing)
-3. Use VS Code + Live Server extension or any local server
-4. Keep your API key only on your machine (never commit it!)
-
-**Warning**: Never commit your Gemini API key to GitHub if using direct calls.
-
-## Technologies Used
-
-- HTML5, CSS3, JavaScript (Vanilla – no frameworks)
+- Vanilla JavaScript, HTML5, CSS3
 - Google Gemini API (via secure serverless proxy)
-- LibreTranslate (free, open-source translation)
-- Vercel (hosting & serverless functions)
-- Progressive Web App features
+- LibreTranslate (free translation API)
+- Vercel (hosting + serverless)
+- Progressive Web App standards
 
 ## Contributing
 
-Feel free to fork and improve! Ideas:
-- Save favorite words
-- Text-to-speech for pronunciation
-- Difficulty levels
+Feel free to fork and add features:
+- Favorite words list
+- Text-to-speech
 - More languages
+- Difficulty levels
 
 ## License
 
@@ -111,5 +97,5 @@ MIT License – free to use, modify, and share.
 
 ---
 
-Made with ❤️ for language learners everywhere.
+Made with ❤️ for language learners.
 ```
