@@ -1,43 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FincaLearn</title>
- <link rel="stylesheet" href="/css/style.css">
-<link rel="manifest" href="/manifest.json">
+  <title>FincaLearn - Fince Öğren</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#006064">
-  <link rel="icon" href="https://via.placeholder.com/192x192/006064/ffffff?text=F">
+  <!-- İkon hatasını önlemek için base64 placeholder -->
+  <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==">
 </head>
 <body>
   <div class="container">
     <div class="header">
-     <h1>FincaLearn - Fince Öğren</h1>
-      <p class="description">Fince kısa hikaye üretip kelimelerin Türkçe veya İngilizce anlamını öğren!</p>
+      <h1>FincaLearn</h1>
+      <p class="description">Fince kısa hikâyeler okuyarak kelime öğren!</p>
 
       <div class="language-switcher">
-      <button class="lang-btn active" data-lang="tr">Türkçe Çeviri</button>
-      <button class="lang-btn" data-lang="en">English Translation</button>
-</div>
-
-<button id="uret-hikaye">Yeni Fince Hikaye Üret</button>
-<input type="text" id="konu" placeholder="Hikaye konusu (isteğe bağlı, Fince veya Türkçe)" />
+        <button class="lang-btn active" data-lang="tr">Türkçe Çeviri</button>
+        <button class="lang-btn" data-lang="en">English Translation</button>
       </div>
     </div>
 
-    <p class="description">
-      Generate a short story and learn word meanings with a tap!
-    </p>
-
     <div class="controls">
-      <button id="uret-hikaye">Generate New Story</button>
-      <input type="text" id="konu" placeholder="Story topic (optional)" />
+      <input type="text" id="konu" placeholder="Hikâye konusu (isteğe bağlı, Türkçe veya Fince)" />
+      <button id="uret-hikaye">Yeni Fince Hikâye Üret</button>
     </div>
 
     <div id="hikaye-alani" class="hikaye"></div>
 
     <div id="ceviri-popup" class="popup hidden">
-      <span id="ceviri-icerik"></span>
+      <span id="ceviri-icerik">Çeviriliyor...</span>
       <button id="kapat-popup">✕</button>
     </div>
   </div>
