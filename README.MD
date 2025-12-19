@@ -18,21 +18,26 @@ Perfect for immersive language practice – read fun stories and learn vocabular
 ## Project Structure
 ```
 
-fincalaarn/
-├── src/
-│ ├── index.html # Main HTML file
-│ ├── manifest.json # PWA manifest
+fincalaarn/ ← Root folder (your project name)
+│
+├── src/ ← All frontend files (served to the browser)
+│ ├── index.html ← Main page
+│ ├── manifest.json ← PWA manifest (for "Add to Home Screen")
+│ │
 │ ├── css/
-│ │ └── style.css # All styles (responsive + mobile-friendly)
+│ │ └── style.css ← All styles
+│ │
 │ └── js/
-│ ├── main.js # App logic, language switching, UI updates
-│ ├── api.js # API calls (story generation + translation)
-│ ├── dom.js # DOM manipulation (render story, word clicks, popup)
-├── api/
-│ └── hikaye.js # Vercel serverless function (secure Gemini proxy)
-├── vercel.json # Optional: Vercel configuration (if needed)
-├── .gitignore # Protects your API key
-└── README.md # This file
+│ ├── main.js ← Main app logic + language switching
+│ ├── api.js ← Frontend API calls (proxy + translation)
+│ └── dom.js ← DOM manipulation (story rendering, popups)
+│
+├── api/ ← Vercel serverless functions (backend)
+│ └── hikaye.js ← Secure proxy that uses your Gemini API key
+│
+├── .gitignore ← Prevents accidental commits (e.g., local env files)
+├── README.md ← Documentation (English)
+└── (NO .env file here!) ← See explanation below
 
 ```
 
