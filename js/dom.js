@@ -33,13 +33,15 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
 
       try {
         const translation = await kelimeyiCevir(original, hedefDil);
-        ceviriIcerik.innerHTML = `<strong>${original}</strong> (Fince)<br>${translation} (${hedefDil === 'tr' ? 'Türkçe' : 'English'})`;
+        ceviriIcerik.innerHTML = `<strong>${original}</strong> (Fince)<br>${translation}<br><small>(${hedefDil === 'tr' ? 'Türkçe' : 'English'})</small>`;
       } catch (err) {
         ceviriIcerik.textContent = 'Hata oluştu';
       }
     };
   });
 }
+
+
 
 kapatBtn.onclick = () => {
   popup.classList.add('hidden');
