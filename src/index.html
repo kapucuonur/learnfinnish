@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FincaLearn - Learn with English stories and Türkçe Hikaye ile Kelime Öğren</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#006064">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 data-tr="FincaLearn" data-en="FincaLearn">FincaLearn</h1>
+      <div class="language-switcher">
+        <button class="lang-btn active" data-lang="tr">Türkçe</button>
+        <button class="lang-btn" data-lang="en">English</button>
+      </div>
+    </div>
+
+    <p data-tr="Kısa bir Türkçe hikaye üretip kelimelerin İngilizce anlamını öğren!" 
+       data-en="Generate a short story and learn word meanings with a tap!">
+      Kısa bir Türkçe hikaye üretip kelimelerin İngilizce anlamını öğren!
+    </p>
+    
+    <div class="controls">
+      <button id="uret-hikaye" data-tr="Yeni Hikaye Üret" data-en="Generate New Story">
+        Yeni Hikaye Üret
+      </button>
+      <input type="text" id="konu" 
+             data-tr-placeholder="Hikaye konusu (isteğe bağlı)" 
+             data-en-placeholder="Story topic (optional)"
+             placeholder="Hikaye konusu (isteğe bağlı)" />
+    </div>
+
+    <div id="hikaye-alani" class="hikaye"></div>
+
+    <div id="ceviri-popup" class="popup hidden">
+      <span id="ceviri-icerik"></span>
+      <button id="kapat-popup">✕</button>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
