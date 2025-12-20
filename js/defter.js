@@ -65,7 +65,10 @@ export function defteriListele() {
 
 export function defterSayisiniGuncelle() {
   const defter = JSON.parse(localStorage.getItem(DEFTER_KEY) || '[]');
-  document.getElementById('defter-sayi').textContent = defter.length;
+  const sayiEl = document.getElementById('defter-sayi');
+  if (sayiEl) {
+    sayiEl.textContent = defter.length;
+  }
 }
 
 export function defteriTemizle() {

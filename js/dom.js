@@ -1,4 +1,5 @@
 import { kelimeyiCevir } from './api.js';
+import { deftereEkle } from './defter.js'; // <-- BU SATIRI EKLE!
 
 const hikayeAlani = document.getElementById('hikaye-alani');
 const popup = document.getElementById('ceviri-popup');
@@ -6,21 +7,13 @@ const ceviriIcerik = document.getElementById('ceviri-icerik');
 const kapatBtn = document.getElementById('kapat-popup');
 const overlay = document.querySelector('.overlay');
 
-// Sesli okuma fonksiyonu (Fince doğal ses)
 function sesliOku(metin) {
   if ('speechSynthesis' in window) {
-    // Önceki konuşmayı iptal et
     speechSynthesis.cancel();
-
     const utterance = new SpeechSynthesisUtterance(metin);
-    utterance.lang = 'fi-FI'; // Fince ses
-    utterance.rate = 0.9; // Doğal hız
-    utterance.pitch = 1;
-    utterance.volume = 1;
-
+    utterance.lang = 'fi-FI';
+    utterance.rate = 0.9;
     speechSynthesis.speak(utterance);
-  } else {
-    alert('Tarayıcınız sesli okumayı desteklemiyor.');
   }
 }
 
@@ -36,18 +29,14 @@ export function hikayeYaz(metin) {
       const span = document.createElement('span');
       span.className = 'kelime';
       span.textContent = part;
-
-      // Kelimeye çift tıkla → sesli oku (kelimeyi)
       span.addEventListener('dblclick', (e) => {
         e.stopPropagation();
         sesliOku(part.trim());
       });
-
       hikayeAlani.appendChild(span);
     }
   });
 
-  // Hikayenin tamamını oku butonu ekle (hikaye alanının altına)
   const okuButon = document.createElement('button');
   okuButon.textContent = 'Hikayeyi Sesli Oku';
   okuButon.style.marginTop = '20px';
@@ -56,9 +45,7 @@ export function hikayeYaz(metin) {
   okuButon.style.color = 'white';
   okuButon.style.border = 'none';
   okuButon.style.borderRadius = '8px';
-  okuButon.style.cursor = 'pointer';
   okuButon.onclick = () => sesliOku(metin);
-
   hikayeAlani.appendChild(document.createElement('br'));
   hikayeAlani.appendChild(okuButon);
 }
@@ -67,22 +54,27 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
   document.querySelectorAll('.kelime').forEach(kelime => {
     kelime.onclick = async () => {
       const original = kelime.textContent.trim();
-      ceviriIcerik.innerHTML = `${hedefDil === 'tr' ? 'Çeviriliyor...' : 'Translating...'}`;
+
+      // Popup içeriğini sıfırla
+      ceviriIcerik.innerHTML = hedefDil === 'tr' ? 'Çeviriliyor...' : 'Translating...';
       popup.classList.remove('hidden');
       overlay.classList.remove('hidden');
 
       try {
         const translation = await kelimeyiCevir(original, hedefDil);
 
-        // Deftere ekle butonu
+        // Deftere Ekle butonu (küçük ve güzel)
         const defterBtn = document.createElement('button');
         defterBtn.textContent = hedefDil === 'tr' ? 'Deftere Ekle' : 'Add to Notebook';
-        defterBtn.style.marginTop = '10px';
+        defterBtn.style.marginTop = '15px';
         defterBtn.style.padding = '8px 16px';
         defterBtn.style.background = '#006064';
         defterBtn.style.color = 'white';
         defterBtn.style.border = 'none';
         defterBtn.style.borderRadius = '6px';
+        defterBtn.style.fontSize = '0.9em';
+        defterBtn.style.cursor = 'pointer';
+
         defterBtn.onclick = (e) => {
           e.stopPropagation();
           deftereEkle(original, translation, hedefDil);
@@ -90,14 +82,12 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
         };
 
         ceviriIcerik.innerHTML = `
-          <strong>${original}</strong> (Finnish)<br>
-          ${translation}<br>
+          <strong style="font-size:1.2em;">${original}</strong><br>
+          <span style="font-size:1em;">${translation}</span><br>
           <small>(${hedefDil === 'tr' ? 'Türkçe' : 'English'})</small>
         `;
-        ceviriIcerik.appendChild(document.createElement('br'));
         ceviriIcerik.appendChild(defterBtn);
 
-        // Sesli oku
         sesliOku(original);
       } catch (err) {
         ceviriIcerik.textContent = hedefDil === 'tr' ? 'Hata oluştu' : 'Error occurred';
@@ -109,7 +99,7 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
 kapatBtn.onclick = () => {
   popup.classList.add('hidden');
   overlay.classList.add('hidden');
-  speechSynthesis.cancel(); // Popup kapanınca sesi durdur
+  speechSynthesis.cancel();
 };
 
 overlay.onclick = () => {
