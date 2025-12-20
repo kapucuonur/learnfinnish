@@ -1,3 +1,4 @@
+// js/main.js
 import { hikayeUret } from './api.js';
 import { hikayeYaz, kelimeEventiEkle } from './dom.js';
 

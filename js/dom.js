@@ -1,3 +1,4 @@
+// js/dom.js
 import { kelimeyiCevir } from './api.js';
 
 const hikayeAlani = document.getElementById('hikaye-alani');

@@ -1,4 +1,4 @@
-// api/translate.js - MyMemory proxy (CORS'u tamamen bypass eder, Fince çeviri için güvenilir)
+// api/translate.js
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Only POST allowed' });
@@ -21,7 +21,6 @@ export default async function handler(req, res) {
 
     let translation = data.responseData?.translatedText || (hedefDil === 'tr' ? 'Çeviri bulunamadı' : 'No translation found');
 
-    // Büyük harf düzeltme
     if (kelime.charAt(0).toUpperCase() === kelime.charAt(0) && translation) {
       translation = translation.charAt(0).toUpperCase() + translation.slice(1);
     }

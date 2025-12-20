@@ -1,3 +1,4 @@
+// js/api.js
 export async function hikayeUret(konu = '') {
   const basePrompt = `250-500 kelime uzunluğunda, B1 seviyesinde (intermediate) Fince dilinde bir hikaye yaz.
 - Günlük hayat, seyahat, iş, arkadaşlık, şehir hayatı, doğa gibi yetişkin temaları kullan.
