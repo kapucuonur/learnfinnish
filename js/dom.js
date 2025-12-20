@@ -1,5 +1,5 @@
 import { kelimeyiCevir } from './api.js';
-import { deftereEkle } from './defter.js'; // <-- BU SATIRI EKLE!
+import { deftereEkle } from './defter.js'; 
 
 const hikayeAlani = document.getElementById('hikaye-alani');
 const popup = document.getElementById('ceviri-popup');
@@ -13,6 +13,8 @@ function sesliOku(metin) {
     const utterance = new SpeechSynthesisUtterance(metin);
     utterance.lang = 'fi-FI';
     utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
     speechSynthesis.speak(utterance);
   }
 }
@@ -29,23 +31,31 @@ export function hikayeYaz(metin) {
       const span = document.createElement('span');
       span.className = 'kelime';
       span.textContent = part;
+
+      // Çift tıkla sadece kelimeyi oku
       span.addEventListener('dblclick', (e) => {
         e.stopPropagation();
         sesliOku(part.trim());
       });
+
       hikayeAlani.appendChild(span);
     }
   });
 
+  // Hikayeyi tamamen oku butonu
   const okuButon = document.createElement('button');
   okuButon.textContent = 'Hikayeyi Sesli Oku';
-  okuButon.style.marginTop = '20px';
-  okuButon.style.padding = '10px 20px';
+  okuButon.style.marginTop = '30px';
+  okuButon.style.padding = '12px 24px';
   okuButon.style.background = '#006064';
   okuButon.style.color = 'white';
   okuButon.style.border = 'none';
-  okuButon.style.borderRadius = '8px';
+  okuButon.style.borderRadius = '12px';
+  okuButon.style.fontSize = '1.1em';
+  okuButon.style.cursor = 'pointer';
+  okuButon.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
   okuButon.onclick = () => sesliOku(metin);
+
   hikayeAlani.appendChild(document.createElement('br'));
   hikayeAlani.appendChild(okuButon);
 }
@@ -55,28 +65,28 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
     kelime.onclick = async () => {
       const original = kelime.textContent.trim();
 
-      // Popup içeriğini sıfırla
-      ceviriIcerik.innerHTML = hedefDil === 'tr' ? 'Çeviriliyor...' : 'Translating...';
+      // Popup'ı aç ve yükleniyor mesajı
+      ceviriIcerik.innerHTML = `<div style="padding: 20px 0; font-size: 1.1em;">${hedefDil === 'tr' ? 'Çeviriliyor...' : 'Translating...'}</div>`;
       popup.classList.remove('hidden');
       overlay.classList.remove('hidden');
 
       try {
         const translation = await kelimeyiCevir(original, hedefDil);
 
-        // Deftere Ekle butonu (küçük ve güzel)
+        // Deftere Ekle butonu (küçük, güzel, çeviriyi kapatmaz)
         const defterBtn = document.createElement('button');
         defterBtn.textContent = hedefDil === 'tr' ? 'Deftere Ekle' : 'Add to Notebook';
-defterBtn.style.marginTop = '15px';
-defterBtn.style.padding = '10px 20px';
-defterBtn.style.background = '#006064';
-defterBtn.style.color = 'white';
-defterBtn.style.border = 'none';
-defterBtn.style.borderRadius = '8px';
-defterBtn.style.fontSize = '1em';
-defterBtn.style.cursor = 'pointer';
-defterBtn.style.display = 'block';
-defterBtn.style.marginLeft = 'auto';
-defterBtn.style.marginRight = 'auto';
+        defterBtn.style.display = 'block';
+        defterBtn.style.margin = '25px auto 10px';
+        defterBtn.style.padding = '12px 30px';
+        defterBtn.style.background = '#006064';
+        defterBtn.style.color = 'white';
+        defterBtn.style.border = 'none';
+        defterBtn.style.borderRadius = '30px';
+        defterBtn.style.fontSize = '1em';
+        defterBtn.style.fontWeight = 'bold';
+        defterBtn.style.cursor = 'pointer';
+        defterBtn.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
 
         defterBtn.onclick = (e) => {
           e.stopPropagation();
@@ -84,23 +94,27 @@ defterBtn.style.marginRight = 'auto';
           alert(hedefDil === 'tr' ? `${original} deftere eklendi!` : `${original} added to notebook!`);
         };
 
+        // Popup içeriği — çeviri net görünür, buton altta
         ceviriIcerik.innerHTML = `
-  <div style="margin-bottom: 15px;">
-    <strong style="font-size:1.4em; display:block;">${original}</strong>
-    <span style="font-size:1.2em; display:block; margin:10px 0;">${translation}</span>
-    <small style="display:block; color:#666;">(${hedefDil === 'tr' ? 'Türkçe' : 'English'})</small>
-  </div>
-`;
-ceviriIcerik.appendChild(defterBtn);
+          <div style="margin-bottom: 20px;">
+            <strong style="font-size: 1.6em; display: block; margin-bottom: 10px;">${original}</strong>
+            <span style="font-size: 1.4em; display: block; margin-bottom: 10px;">${translation}</span>
+            <small style="color: #666; display: block;">(${hedefDil === 'tr' ? 'Türkçe' : 'English'})</small>
+          </div>
+        `;
 
+        ceviriIcerik.appendChild(defterBtn);
+
+        // Kelimeye tıklandığında otomatik sesli oku
         sesliOku(original);
       } catch (err) {
-        ceviriIcerik.textContent = hedefDil === 'tr' ? 'Hata oluştu' : 'Error occurred';
+        ceviriIcerik.innerHTML = `<div style="color: #d32f2f; padding: 20px 0;">${hedefDil === 'tr' ? 'Hata oluştu' : 'Error occurred'}</div>`;
       }
     };
   });
 }
 
+// Popup kapatma
 kapatBtn.onclick = () => {
   popup.classList.add('hidden');
   overlay.classList.add('hidden');

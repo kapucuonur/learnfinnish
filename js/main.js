@@ -122,19 +122,24 @@ window.addEventListener('beforeinstallprompt', (e) => {
   document.body.appendChild(installBtn);
 });
 
-// Firebase Auth - Mevcut HTML elementlerini kullan
+// Firebase Auth - Giriş Sistemi
 const loginBtn = document.getElementById('login-btn');
 const userInfo = document.getElementById('user-info');
 const userName = document.getElementById('user-name');
 const logoutBtn = document.getElementById('logout-btn');
-const premiumBtn = document.getElementById('premium-btn');
+const premiumInfo = document.getElementById('premium-info');
 
 loginBtn.onclick = () => signInWithPopup(auth, provider);
 
 logoutBtn.onclick = () => signOut(auth);
 
 premiumBtn.onclick = () => {
-  alert('Ödeme sistemi yakında aktif olacak! Giriş yapan kullanıcılar premium özelliklere erişiyor.');
+  if (auth.currentUser) {
+    // Gerçek ödeme burada olacak (Stripe)
+    alert('Ödeme sistemi yakında aktif olacak!');
+  } else {
+    alert(currentLang === 'tr' ? 'Premium olmak için önce giriş yapmalısınız!' : 'Please sign in to go premium!');
+  }
 };
 
 onAuthStateChanged(auth, (user) => {
@@ -142,10 +147,11 @@ onAuthStateChanged(auth, (user) => {
     loginBtn.style.display = 'none';
     userInfo.style.display = 'block';
     userName.textContent = `Hoş geldin, ${user.displayName || user.email}!`;
-    // Premium özellikleri aktif et
+    premiumInfo.style.display = 'none'; // Giriş yapan premium olsun
   } else {
     loginBtn.style.display = 'block';
     userInfo.style.display = 'none';
+    premiumInfo.style.display = 'block'; // Giriş yapmadan premium bilgisi görünsün
   }
 });
 
