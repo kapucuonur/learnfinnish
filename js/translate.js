@@ -1,4 +1,4 @@
-// api/translate.js - Google Translate unofficial proxy (2025'te hala çalışan, en güvenilir yöntem)
+// api/translate.js
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Only POST allowed' });
@@ -14,25 +14,15 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      return res.status(500).json({ 
-        translation: hedefDil === 'tr' ? 'Çeviri hatası' : 'Translation error' 
-      });
+      return res.status(500).json({ translation: 'Çeviri hatası' });
     }
 
     const data = await response.json();
-    const translation = data[0][0][0] || (hedefDil === 'tr' ? 'Çeviri bulunamadı' : 'No translation found');
+    const translation = data[0][0][0] || 'Çeviri bulunamadı';
 
-    // Büyük harf düzeltme (kelime büyük harfle başlıyorsa çeviri de öyle olsun)
-    let finalTranslation = translation;
-    if (kelime.charAt(0).toUpperCase() === kelime.charAt(0) && translation) {
-      finalTranslation = translation.charAt(0).toUpperCase() + translation.slice(1);
-    }
-
-    res.status(200).json({ translation: finalTranslation });
+    res.status(200).json({ translation });
   } catch (err) {
-    res.status(500).json({ 
-      translation: hedefDil === 'tr' ? 'Bağlantı hatası' : 'Connection error' 
-    });
+    res.status(500).json({ translation: 'Bağlantı hatası' });
   }
 }
 
