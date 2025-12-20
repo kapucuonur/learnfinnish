@@ -67,15 +67,37 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
   document.querySelectorAll('.kelime').forEach(kelime => {
     kelime.onclick = async () => {
       const original = kelime.textContent.trim();
-      ceviriIcerik.textContent = hedefDil === 'tr' ? 'Çeviriliyor...' : 'Translating...';
+      ceviriIcerik.innerHTML = `${hedefDil === 'tr' ? 'Çeviriliyor...' : 'Translating...'}`;
       popup.classList.remove('hidden');
       overlay.classList.remove('hidden');
 
       try {
         const translation = await kelimeyiCevir(original, hedefDil);
-        ceviriIcerik.innerHTML = `<strong>${original}</strong> (Finnish)<br>${translation}<br><small>(${hedefDil === 'tr' ? 'Türkçe' : 'English'})</small>`;
 
-        // Kelimeye tıklandığında otomatik sesli oku
+        // Deftere ekle butonu
+        const defterBtn = document.createElement('button');
+        defterBtn.textContent = hedefDil === 'tr' ? 'Deftere Ekle' : 'Add to Notebook';
+        defterBtn.style.marginTop = '10px';
+        defterBtn.style.padding = '8px 16px';
+        defterBtn.style.background = '#006064';
+        defterBtn.style.color = 'white';
+        defterBtn.style.border = 'none';
+        defterBtn.style.borderRadius = '6px';
+        defterBtn.onclick = (e) => {
+          e.stopPropagation();
+          deftereEkle(original, translation, hedefDil);
+          alert(hedefDil === 'tr' ? `${original} deftere eklendi!` : `${original} added to notebook!`);
+        };
+
+        ceviriIcerik.innerHTML = `
+          <strong>${original}</strong> (Finnish)<br>
+          ${translation}<br>
+          <small>(${hedefDil === 'tr' ? 'Türkçe' : 'English'})</small>
+        `;
+        ceviriIcerik.appendChild(document.createElement('br'));
+        ceviriIcerik.appendChild(defterBtn);
+
+        // Sesli oku
         sesliOku(original);
       } catch (err) {
         ceviriIcerik.textContent = hedefDil === 'tr' ? 'Hata oluştu' : 'Error occurred';

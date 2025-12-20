@@ -142,6 +142,57 @@ h1 {
   display: none;
 }
 
+.tabs {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: #eee;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #006064;
+  color: white;
+}
+
+#defter-alani {
+  margin-top: 20px;
+}
+
+#kelime-listesi {
+  list-style: none;
+  padding: 0;
+}
+
+#kelime-listesi li {
+  padding: 15px;
+  margin: 10px 0;
+  background: #f0f7f9;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kelime-defter-item strong {
+  font-size: 1.2em;
+}
+
+.kelime-sil {
+  background: #d32f2f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .container { padding: 20px; }
   .hikaye { font-size: 1.1em; line-height: 1.8; }
