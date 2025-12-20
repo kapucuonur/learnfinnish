@@ -14,15 +14,15 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      return res.status(500).json({ translation: 'Çeviri hatası' });
+      return res.status(500).json({ translation: hedefDil === 'tr' ? 'Çeviri hatası' : 'Translation error' });
     }
 
     const data = await response.json();
-    const translation = data[0][0][0] || 'Çeviri bulunamadı';
+    const translation = data[0][0][0] || (hedefDil === 'tr' ? 'Çeviri bulunamadı' : 'No translation found');
 
     res.status(200).json({ translation });
   } catch (err) {
-    res.status(500).json({ translation: 'Bağlantı hatası' });
+    res.status(500).json({ translation: hedefDil === 'tr' ? 'Bağlantı hatası' : 'Connection error' });
   }
 }
 
