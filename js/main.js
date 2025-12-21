@@ -180,13 +180,14 @@ onAuthStateChanged(auth, (user) => {
     loginBtn.textContent = loginBtn.dataset[currentLang === 'tr' ? 'tr' : 'en'] || 'Google ile Giriş Yap';
     userInfo.classList.remove('hidden');
     userName.textContent = `${currentLang === 'tr' ? 'Hoş geldin' : 'Welcome'}, ${user.displayName || user.email}!`;
-    premiumInfo.style.display = 'none'; // Giriş yapan premium olsun
+    // Keep premium section visible - user might not be premium yet
+    premiumInfo.style.display = 'block';
   } else {
     loginBtn.style.display = 'block';
     loginBtn.disabled = false;
     loginBtn.textContent = loginBtn.dataset[currentLang === 'tr' ? 'tr' : 'en'] || 'Google ile Giriş Yap';
     userInfo.classList.add('hidden');
-    premiumInfo.style.display = 'block'; // Giriş yapmadan premium bilgisi görünsün
+    premiumInfo.style.display = 'block';
   }
 });
 
