@@ -1,18 +1,17 @@
 /* Popup Component */
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    /* Changed from fixed for word-relative positioning */
     max-width: 90%;
-    width: 400px;
-    padding: var(--space-8);
+    width: 420px;
+    padding: var(--space-6);
     background: var(--color-white);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     z-index: var(--z-modal);
-    animation: popupSlideIn var(--transition-base);
+    animation: popupFadeIn 0.2s ease-out;
 }
+
 
 #ceviri-popup {
     text-align: center;
@@ -78,17 +77,18 @@
     backdrop-filter: blur(2px);
 }
 
-@keyframes popupSlideIn {
+@keyframes popupFadeIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -60%);
+        transform: translateY(-10px) scale(0.95);
     }
 
     to {
         opacity: 1;
-        transform: translate(-50%, -50%);
+        transform: translateY(0) scale(1);
     }
 }
+
 
 @keyframes fadeIn {
     from {
@@ -102,7 +102,8 @@
 
 @media (max-width: 480px) {
     .popup {
-        width: 95%;
-        padding: var(--space-5);
+        width: 90%;
+        max-width: 350px;
+        padding: var(--space-4);
     }
 }
