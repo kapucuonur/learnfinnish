@@ -74,10 +74,13 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .auth-header {
-        top: 10px;
+        top: 60px;
+        /* Move down to avoid language switcher */
         right: 10px;
         flex-direction: column;
         align-items: flex-end;
+        z-index: 100;
+        /* Lower than language switcher */
     }
 
     .auth-header #user-info {
