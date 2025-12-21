@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-tr="FinceLearn - Fince Öğren" data-en="FinceLearn - Learn Finnish">FinceLearn - Fince Öğren</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title data-tr="LearnFinnish - Fince Öğren" data-en="LearnFinnish - Learn Finnish">LearnFinnish - Fince Öğren</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#006064">
   <link rel="icon"
@@ -15,7 +15,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1 data-tr="FinceLearn" data-en="FinceLearn">FinceLearn</h1>
+      <h1 data-tr="LearnFinnish" data-en="LearnFinnish">LearnFinnish</h1>
       <p class="description" data-tr="Fince kısa hikâyeler okuyarak kelime öğren!"
         data-en="Learn Finnish words by reading short stories!">
         Fince kısa hikâyeler okuyarak kelime öğren!
@@ -98,9 +98,6 @@
     <div class="overlay hidden"></div>
 
     <script src="https://js.stripe.com/v3/"></script>
-    <script>
-      const stripe = Stripe('pk_test_51RPSymGBPXxMTpubh4D982BiRPiBOXBxOGBLoBiSeWhrkAv2Ou9a2HAmkchbKktJXkpWYtcL307gdgT4PXWxRAc500tdraauMa'); // pk_test_... ile değiştir
-    </script>
     <!-- Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
@@ -112,7 +109,7 @@
       }
     </script>
 
-    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>

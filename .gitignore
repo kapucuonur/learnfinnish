@@ -1,7 +1,12 @@
 node_modules/
 .DS_Store
+.vercel
 .env
 .env.local
-.history
+.env.example
+node_modules/
+package-lock.json
+
 /history
 .history/
+.history
