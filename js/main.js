@@ -127,6 +127,7 @@ const loginBtn = document.getElementById('login-btn');
 const userInfo = document.getElementById('user-info');
 const userName = document.getElementById('user-name');
 const logoutBtn = document.getElementById('logout-btn');
+const premiumBtn = document.getElementById('premium-btn');
 const premiumInfo = document.getElementById('premium-info');
 
 // Login button handler with loading state
