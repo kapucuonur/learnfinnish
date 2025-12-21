@@ -1,0 +1,120 @@
+/* Auth Header - Top Right Corner */
+.auth-header {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.auth-header #user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #e8f5e8;
+    padding: 10px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-header #user-name {
+    font-weight: 600;
+    font-size: 0.95em;
+    color: #2e7d32;
+}
+
+.auth-header #logout-btn {
+    padding: 8px 16px;
+    background: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.auth-header #logout-btn:hover {
+    background: #b71c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+.auth-header #login-btn {
+    padding: 10px 20px;
+    background: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-header #login-btn:hover {
+    background: #3367D6;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+}
+
+.auth-header #login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .auth-header {
+        top: 10px;
+        right: 10px;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .auth-header #user-info {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        padding: 8px 12px;
+    }
+
+    .auth-header #user-name {
+        font-size: 0.85em;
+    }
+
+    .auth-header #logout-btn,
+    .auth-header #login-btn {
+        font-size: 0.85em;
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-header {
+        top: 8px;
+        right: 8px;
+    }
+
+    .auth-header #user-name {
+        font-size: 0.8em;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .auth-header #logout-btn,
+    .auth-header #login-btn {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+}
