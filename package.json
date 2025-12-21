@@ -4,9 +4,7 @@
   "description": "Learn Finnish by reading short stories",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "vercel build",
-    "deploy": "vercel --prod"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "stripe": "^14.0.0",
