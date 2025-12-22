@@ -188,6 +188,24 @@
     <button id="kapat-popup" class="popup-close">✕</button>
   </div>
 
+  <!-- Chatbot -->
+  <button id="chat-button" aria-label="Help Chat">
+    💬
+  </button>
+
+  <div id="chat-window" class="hidden">
+    <div class="chat-header">
+      <h3 data-tr="Yardım" data-en="Help">Yardım</h3>
+      <button id="chat-close" aria-label="Close chat">×</button>
+    </div>
+    <div id="chat-messages"></div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" data-placeholder-tr="Bir soru sorun..." data-placeholder-en="Ask a question..."
+        placeholder="Bir soru sorun...">
+      <button id="chat-send" aria-label="Send message">➤</button>
+    </div>
+  </div>
+
   <div class="overlay hidden"></div>
 
   <!-- Scripts -->

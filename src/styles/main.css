@@ -19,6 +19,7 @@
 @import url('./components/flashcard.css');
 @import url('./components/usage-limit-modal.css');
 @import url('./components/popup.css');
+@import url('./components/chatbot.css');
 
 /* Utility Classes */
 .text-center {

@@ -7,6 +7,7 @@ import { initTabs, initNotebookClear } from './components/WordNotebook.js';
 import { initPWAInstall } from './components/PWAInstall.js';
 import { initUsageLimitModal } from './components/UsageLimitModal.js';
 import { initThemeToggle } from './components/ThemeToggle.js';
+import { initChatbot } from './components/Chatbot.js';
 import { initializeStripe, handlePaymentCallback } from './services/payment.js';
 import { defterSayisiniGuncelle } from './services/storage.js';
 import { updateTranslations, getCurrentLanguage } from './utils/i18n.js';
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initNotebookClear();
     initPWAInstall();
     initUsageLimitModal();
+    initChatbot();
 
     // Initialize Stripe
     initializeStripe(STRIPE_PUBLISHABLE_KEY);

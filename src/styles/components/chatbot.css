@@ -1,0 +1,177 @@
+/* ========================================
+   CHATBOT
+   ======================================== */
+
+/* Floating Chat Button */
+#chat-button {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-text-inverse);
+    border-radius: var(--radius-full);
+    border: none;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    transition: all var(--transition-base);
+    z-index: var(--z-fixed);
+}
+
+#chat-button:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-xl);
+}
+
+#chat-button:active {
+    transform: scale(0.95);
+}
+
+/* Chat Window */
+#chat-window {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    width: 350px;
+    height: 500px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    z-index: var(--z-fixed);
+    overflow: hidden;
+}
+
+#chat-window.hidden {
+    display: none;
+}
+
+/* Chat Header */
+.chat-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-text-inverse);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+}
+
+#chat-close {
+    background: none;
+    border: none;
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-2xl);
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: background var(--transition-fast);
+}
+
+#chat-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Chat Messages */
+#chat-messages {
+    flex: 1;
+    padding: var(--space-lg);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    background: var(--color-background);
+}
+
+.chat-message {
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    max-width: 80%;
+    word-wrap: break-word;
+    white-space: pre-line;
+    line-height: var(--line-height-relaxed);
+}
+
+.bot-message {
+    background: var(--color-card);
+    color: var(--color-text-primary);
+    align-self: flex-start;
+    border: 1px solid var(--color-border);
+}
+
+.user-message {
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    align-self: flex-end;
+}
+
+/* Chat Input */
+.chat-input-area {
+    padding: var(--space-lg);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    gap: var(--space-sm);
+}
+
+#chat-input {
+    flex: 1;
+    padding: var(--space-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+#chat-send {
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+#chat-send:hover {
+    background: var(--color-primary-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #chat-window {
+        width: calc(100vw - var(--space-xl) * 2);
+        height: 70vh;
+        bottom: var(--space-md);
+        right: var(--space-md);
+    }
+
+    #chat-button {
+        bottom: var(--space-md);
+        right: var(--space-md);
+    }
+}
