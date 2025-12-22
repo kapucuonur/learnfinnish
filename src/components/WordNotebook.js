@@ -1,37 +1,56 @@
 // Word Notebook Component
 import { defteriListele, defteriTemizle } from '../services/storage.js';
 import { getCurrentLang } from './LanguageSwitcher.js';
+import { initFlashcards, reloadFlashcards } from './Flashcard.js';
 
 export function initTabs() {
-    const hikayeTab = document.getElementById('tab-hikaye');
-    const defterTab = document.getElementById('tab-defter');
-    const hikayeArea = document.getElementById('hikaye-alani');
-    const defterArea = document.getElementById('defter-alani');
+    const tabHikaye = document.getElementById('tab-hikaye');
+    const tabFlashcard = document.getElementById('tab-flashcard');
+    const tabDefter = document.getElementById('tab-defter');
+    const hikayeAlani = document.getElementById('hikaye-alani');
+    const flashcardAlani = document.getElementById('flashcard-alani');
+    const defterAlani = document.getElementById('defter-alani');
 
-    if (!hikayeTab || !defterTab) return;
+    if (!tabHikaye || !tabFlashcard || !tabDefter) return;
 
-    hikayeTab.addEventListener('click', () => {
-        hikayeTab.classList.add('active');
-        defterTab.classList.remove('active');
-        hikayeArea.style.display = 'block';
-        defterArea.classList.add('hidden');
+    tabHikaye.addEventListener('click', () => {
+        tabHikaye.classList.add('active');
+        tabFlashcard.classList.remove('active');
+        tabDefter.classList.remove('active');
+        hikayeAlani.classList.remove('hidden');
+        flashcardAlani.classList.add('hidden');
+        defterAlani.classList.add('hidden');
     });
 
-    defterTab.addEventListener('click', () => {
-        defterTab.classList.add('active');
-        hikayeTab.classList.remove('active');
-        hikayeArea.style.display = 'none';
-        defterArea.classList.remove('hidden');
+    tabFlashcard.addEventListener('click', () => {
+        tabHikaye.classList.remove('active');
+        tabFlashcard.classList.add('active');
+        tabDefter.classList.remove('active');
+        hikayeAlani.classList.add('hidden');
+        flashcardAlani.classList.remove('hidden');
+        defterAlani.classList.add('hidden');
+
+        // Initialize flashcards when tab is opened
+        initFlashcards();
+    });
+
+    tabDefter.addEventListener('click', () => {
+        tabHikaye.classList.remove('active');
+        tabFlashcard.classList.remove('active');
+        tabDefter.classList.add('active');
+        hikayeAlani.classList.add('hidden');
+        flashcardAlani.classList.add('hidden');
+        defterAlani.classList.remove('hidden');
         defteriListele();
     });
 }
 
 export function initNotebookClear() {
-    const clearButton = document.getElementById('defter-temizle');
+    const clearBtn = document.getElementById('defter-temizle');
 
-    if (!clearButton) return;
+    if (!clearBtn) return;
 
-    clearButton.addEventListener('click', () => {
+    clearBtn.addEventListener('click', () => {
         const currentLang = getCurrentLang();
         const confirmMsg = currentLang === 'tr'
             ? 'Defterdeki tüm kelimeleri silmek istediğine emin misin?'
@@ -40,6 +59,8 @@ export function initNotebookClear() {
         if (confirm(confirmMsg)) {
             defteriTemizle();
             defteriListele();
+            // Reload flashcards after clearing notebook
+            reloadFlashcards();
         }
     });
 }
