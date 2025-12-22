@@ -10,3 +10,5 @@ package-lock.json
 /history
 .history/
 .history
+*.sh
+!start-server.sh
