@@ -46,31 +46,53 @@ async function updateUsageIndicators() {
     const { getUsageStats } = await import('../services/usageLimits.js');
     const stats = await getUsageStats();
 
-    const indicatorsEl = document.getElementById('usage-indicators');
-    const storyUsageEl = document.getElementById('story-usage');
-    const flashcardUsageEl = document.getElementById('flashcard-usage');
-
-    if (!indicatorsEl || !storyUsageEl || !flashcardUsageEl) return;
-
-    // Hide indicators for premium users
+    // Don't show anything for premium users
     if (stats.isPremium) {
-        indicatorsEl.classList.add('hidden');
+        const existingIndicators = document.getElementById('usage-indicators');
+        if (existingIndicators) {
+            existingIndicators.remove();
+        }
         return;
     }
 
-    // Show indicators for free users
-    indicatorsEl.classList.remove('hidden');
+    // Create or get indicators container
+    let indicatorsEl = document.getElementById('usage-indicators');
 
-    // Update story usage
-    const storyStrong = storyUsageEl.querySelector('strong');
-    if (storyStrong) {
-        storyStrong.textContent = `${stats.stories.used}/${stats.stories.limit}`;
+    if (!indicatorsEl) {
+        // Create the indicators dynamically for free users
+        const controlsDiv = document.querySelector('.controls');
+        if (!controlsDiv) return;
+
+        indicatorsEl = document.createElement('div');
+        indicatorsEl.id = 'usage-indicators';
+        indicatorsEl.className = 'usage-indicators';
+        indicatorsEl.innerHTML = `
+            <span id="story-usage" data-tr="Hikayeler: " data-en="Stories: ">
+                Hikayeler: <strong>0/3</strong>
+            </span>
+            <span id="flashcard-usage" data-tr="Flashcardlar: " data-en="Flashcards: ">
+                Flashcardlar: <strong>0/10</strong>
+            </span>
+        `;
+        controlsDiv.appendChild(indicatorsEl);
     }
 
-    // Update flashcard usage
-    const flashcardStrong = flashcardUsageEl.querySelector('strong');
-    if (flashcardStrong) {
-        flashcardStrong.textContent = `${stats.flashcards.used}/${stats.flashcards.limit}`;
+    // Update the counts
+    const storyUsageEl = document.getElementById('story-usage');
+    const flashcardUsageEl = document.getElementById('flashcard-usage');
+
+    if (storyUsageEl) {
+        const storyStrong = storyUsageEl.querySelector('strong');
+        if (storyStrong) {
+            storyStrong.textContent = `${stats.stories.used}/${stats.stories.limit}`;
+        }
+    }
+
+    if (flashcardUsageEl) {
+        const flashcardStrong = flashcardUsageEl.querySelector('strong');
+        if (flashcardStrong) {
+            flashcardStrong.textContent = `${stats.flashcards.used}/${stats.flashcards.limit}`;
+        }
     }
 }
 
