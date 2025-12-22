@@ -1,34 +1,39 @@
-const CACHE_NAME = 'fincalearn-v2'; 
-
+const CACHE_NAME = 'learnfinnish-v2';
 const urlsToCache = [
-  '/', 
+  '/',
   '/index.html',
-  '/manifest.json',
-  '/css/style.css',
-  '/js/main.js',
-  '/js/api.js',
-  '/js/dom.js',
-  '/js/defter.js',
-  '/js/auth.js', 
-    '/js/payment.js',
-    '/api/hikaye',
-    '/api/create-checkout-session',
-    
-  
+  '/src/styles/main.css',
+  '/src/styles/variables.css',
+  '/src/styles/reset.css',
+  '/src/main.js',
+  '/manifest.json'
 ];
 
 // Install - Cache'e dosyaları ekle
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
+  console.log('Service Worker: Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Service Worker: Cache açıldı ve dosyalar eklendi');
-        return cache.addAll(urlsToCache);
+      .then((cache) => {
+        console.log('Service Worker: Cache açıldı');
+        // Add files one by one to handle errors gracefully
+        return Promise.allSettled(
+          urlsToCache.map(url =>
+            cache.add(url).catch(err => {
+              console.warn(`Failed to cache ${url}:`, err);
+              return null;
+            })
+          )
+        );
       })
-      .catch(err => console.error('Cache ekleme hatası:', err))
+      .then(() => {
+        console.log('Service Worker: Dosyalar cache\'e eklendi');
+        return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error('Service Worker: Cache hatası:', error);
+      })
   );
-  // Yeni service worker hemen aktif olsun (beklemeden)
-  self.skipWaiting();
 });
 
 // Activate - Eski cache'leri temizle
