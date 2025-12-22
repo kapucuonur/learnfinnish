@@ -12,6 +12,7 @@ import { initializeStripe, handlePaymentCallback } from './services/payment.js';
 import { defterSayisiniGuncelle } from './services/storage.js';
 import { updateTranslations, getCurrentLanguage } from './utils/i18n.js';
 import { STRIPE_PUBLISHABLE_KEY } from './config/constants.js';
+import { Router } from './router.js';
 
 // Initialize application when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
@@ -26,6 +27,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     initPWAInstall();
     initUsageLimitModal();
     initChatbot();
+
+    // Initialize router for legal pages
+    const router = new Router();
 
     // Initialize Stripe
     initializeStripe(STRIPE_PUBLISHABLE_KEY);
