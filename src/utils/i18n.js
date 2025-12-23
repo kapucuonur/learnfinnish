@@ -45,6 +45,7 @@ export function getCurrentLanguage() {
 export function setCurrentLanguage(lang) {
     if (lang === LANGUAGES.TR || lang === LANGUAGES.EN) {
         currentLanguage = lang;
+        document.documentElement.lang = lang; // Update HTML lang attribute for chatbot
         updateTranslations(lang);
     }
 }
