@@ -93,7 +93,25 @@ export function kelimeEventiEkle(hedefDil = 'tr') {
       }, 10);
 
       try {
-        const translation = await kelimeyiCevir(original, hedefDil);
+        // Find the sentence containing this word for context
+        const allText = hikayeAlani.textContent;
+        const sentences = allText.match(/[^.!?]+[.!?]+/g) || [allText];
+
+        // Find which sentence contains this word
+        let contextSentence = '';
+        for (const sentence of sentences) {
+          if (sentence.includes(original)) {
+            contextSentence = sentence.trim();
+            break;
+          }
+        }
+
+        // If no sentence found, use the whole text (fallback)
+        if (!contextSentence) {
+          contextSentence = allText.substring(0, 200); // First 200 chars
+        }
+
+        const translation = await kelimeyiCevir(original, hedefDil, contextSentence);
 
         // Sesli okuma butonu
         const audioBtn = document.createElement('button');

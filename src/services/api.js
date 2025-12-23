@@ -27,11 +27,11 @@ Konu: "${konu}". Bu konuya uygun bir hikaye yaz.`
   return data.hikaye.trim();
 }
 
-export async function kelimeyiCevir(kelime, hedefDil = 'tr') {
+export async function kelimeyiCevir(kelime, hedefDil = 'tr', context = '') {
   const response = await fetch('/api/translate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ kelime, hedefDil })
+    body: JSON.stringify({ kelime, hedefDil, context })
   });
 
   if (!response.ok) {
