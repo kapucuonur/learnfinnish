@@ -3,7 +3,11 @@
   "outputDirectory": ".",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/ads.txt",
+      "destination": "/ads.txt"
+    },
+    {
+      "source": "/((?!ads\\.txt|manifest\\.json|src|css|js).*)",
       "destination": "/index.html"
     }
   ],
