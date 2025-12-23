@@ -3,7 +3,7 @@
 Modern, responsive web application for learning Finnish vocabulary through interactive short stories.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.0.0-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 ## 📸 Screenshots
 
@@ -44,9 +44,13 @@ _Fully responsive design optimized for all devices_
 ### Core Features
 
 - 📚 **AI-Generated Stories** - Create personalized Finnish stories on any topic
-- 🔤 **Interactive Vocabulary** - Click any word for instant translation
+- 🔍 **Context-Aware Translation** - Click any word for intelligent translation based on sentence context
 - 📖 **Word Notebook** - Save and manage your learned vocabulary
+- 🎴 **Flashcard Practice** - Study saved words with interactive flashcards
+- 💬 **Help Chatbot** - Get instant assistance while learning
+- 🌙 **Dark Mode** - Toggle between light and dark themes
 - 🌐 **Bilingual Support** - Turkish and English interface
+- 📄 **Legal Pages** - Complete About, Contact, Privacy Policy, and Terms of Service
 - 📱 **Progressive Web App** - Install and use offline
 - 🎨 **Responsive Design** - Optimized for mobile, tablet, and desktop
 
@@ -70,21 +74,32 @@ _Fully responsive design optimized for all devices_
 ```
 /src
 ├── /assets          # Static assets (images, icons, fonts)
-├── /components      # Reusable UI components
+├── /components      # Reusable UI components (10 total)
 │   ├── AuthSection.js
+│   ├── Chatbot.js
+│   ├── Flashcard.js
 │   ├── LanguageSwitcher.js
 │   ├── PremiumCard.js
 │   ├── PWAInstall.js
 │   ├── StoryDisplay.js
+│   ├── ThemeToggle.js
+│   ├── UsageLimitModal.js
 │   └── WordNotebook.js
 ├── /config          # Configuration files
 │   ├── constants.js
 │   └── firebase.js
-├── /services        # Business logic & API calls
+├── /pages           # Legal & informational pages
+│   ├── About.js
+│   ├── Contact.js
+│   ├── Privacy.js
+│   └── Terms.js
+├── /services        # Business logic & API calls (6 total)
 │   ├── api.js
 │   ├── auth.js
+│   ├── chatbot.js
 │   ├── payment.js
-│   └── storage.js
+│   ├── storage.js
+│   └── theme.js
 ├── /styles          # Modular CSS with design system
 │   ├── main.css
 │   ├── variables.css
@@ -95,6 +110,7 @@ _Fully responsive design optimized for all devices_
 ├── /utils           # Helper functions
 │   ├── dom.js
 │   └── i18n.js
+├── router.js        # SPA routing for pages
 └── main.js          # Application entry point
 ```
 
@@ -174,6 +190,8 @@ The app is configured for Vercel with:
 - **CSS3** (Custom properties, Grid, Flexbox)
 - **Firebase SDK** (Authentication, Firestore)
 - **Stripe.js** (Payment processing)
+- **SPA Router** (Client-side routing for legal pages)
+- **LocalStorage** (Theme persistence, word notebook)
 
 ### Backend (Serverless)
 
@@ -184,7 +202,11 @@ The app is configured for Vercel with:
 ### APIs
 
 - **Google Gemini API** - Story generation
-- **Google Translate API** - Word translation
+- **Google Translate API** - Context-aware word translation
+
+### Monetization
+
+- **Google AdSense** - Ad integration for free tier users
 
 ## 📱 Progressive Web App
 
@@ -203,9 +225,11 @@ Features:
 
 ## 🎨 Design Highlights
 
-- **Gradient Background** - Soothing blue gradient
+- **Dark Mode Support** - Seamless light/dark theme switching with persistence
+- **Gradient Background** - Soothing blue gradient (light) / deep teal (dark)
 - **Card-Based Layout** - Clean, modern interface
 - **Smooth Animations** - Micro-interactions for better UX
+- **Interactive Chatbot** - Floating help button with elegant chat interface
 - **Responsive Typography** - Scales with screen size
 - **Touch Optimization** - Perfect for mobile devices
 
