@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   const targetLanguage = hedefDil === 'tr' ? 'Turkish' : 'English';
 
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
 
     // Create a prompt that asks for ONLY the word's translation in context
     const prompt = context && context.length > kelime.length
