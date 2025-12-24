@@ -5,7 +5,10 @@ Modern, responsive web application for learning Finnish vocabulary through inter
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
-## 📸 Screenshots
+## 🌐 Live Demo
+
+- **Custom Domain**: https://www.learn-finnish.fi/
+- **Vercel URL**: https://learnfinnish.vercel.app
 
 ## 📸 Screenshots
 
