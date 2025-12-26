@@ -2,6 +2,7 @@
 // Loads and displays sample stories on the main page
 
 import sampleStories from './data/sampleStories.js';
+import { kelimeyiCevir } from './services/api.js';
 
 // Initialize sample stories display
 function initSampleStories() {
@@ -113,11 +114,13 @@ function loadSampleStory(story) {
                     return;
                 }
 
-                // Call your existing translation function
+                // Call translation API
                 const cleanWord = this.dataset.word;
+                const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'tr';
+
                 try {
-                    // This will use your existing Google Translate API
-                    const translation = await window.translateWord(cleanWord, sentence);
+                    // Use existing Google Translate API
+                    const translation = await kelimeyiCevir(cleanWord, currentLang, sentence);
                     this.dataset.translation = translation;
                     this.classList.add('translated');
                 } catch (error) {
