@@ -150,14 +150,15 @@
 
 <body>
     <div class="header">
-        <h1>📚 LearnFinnish Blog</h1>
-        <p>Fince Öğrenme Rehberleri ve İpuçları</p>
+        <h1 data-tr="📚 LearnFinnish Blog" data-en="📚 LearnFinnish Blog">📚 LearnFinnish Blog</h1>
+        <p data-tr="Fince Öğrenme Rehberleri ve İpuçları" data-en="Finnish Learning Guides and Tips">Fince Öğrenme
+            Rehberleri ve İpuçları</p>
     </div>
 
     <div class="nav">
-        <a href="/">← Ana Sayfa</a>
-        <a href="/about.html">Hakkımızda</a>
-        <a href="/contact.html">İletişim</a>
+        <a href="/" data-tr="← Ana Sayfa" data-en="← Home">← Ana Sayfa</a>
+        <a href="/#about" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+        <a href="/#contact" data-tr="İletişim" data-en="Contact">İletişim</a>
     </div>
 
     <div class="container">
@@ -240,6 +241,35 @@
             <a href="/contact.html" style="color: white; margin: 0 10px;">İletişim</a>
         </p>
     </footer>
+
+    <script>
+        // Simple translation function for blog index
+        function updateTranslations() {
+            // Get language from URL parameter or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const storedLang = localStorage.getItem('selectedLanguage');
+            const currentLang = urlLang || storedLang || 'tr';
+
+            // Update all elements with data-tr and data-en attributes
+            document.querySelectorAll('[data-tr][data-en]').forEach(element => {
+                const text = currentLang === 'tr' ? element.dataset.tr : element.dataset.en;
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+
+        // Run on page load
+        updateTranslations();
+
+        // Listen for storage changes (when language changes on main site)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'selectedLanguage') {
+                updateTranslations();
+            }
+        });
+    </script>
 </body>
 
 </html>
