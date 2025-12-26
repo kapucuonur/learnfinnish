@@ -17,6 +17,12 @@
         <div class="container">
             <a href="/" class="back-link" data-tr="← LearnFinnish'e Dön" data-en="← Return to LearnFinnish">←
                 LearnFinnish'e Dön</a>
+            <div class="lang-switcher" style="display: inline-block; margin-left: 15px;">
+                <button onclick="changeLang('tr')"
+                    style="background:none; border:none; cursor:pointer; font-size:1.1em;">🇹🇷</button>
+                <button onclick="changeLang('en')"
+                    style="background:none; border:none; cursor:pointer; font-size:1.1em;">🇬🇧</button>
+            </div>
             <h1 data-tr="LearnFinnish Blog" data-en="LearnFinnish Blog">LearnFinnish Blog</h1>
         </div>
     </header>
@@ -144,11 +150,23 @@
     </footer>
     <script>
         // Simple translation function for blog posts
-        function updateTranslations() {
+        function updateTranslations(lang = null) {
             const urlParams = new URLSearchParams(window.location.search);
             const urlLang = urlParams.get('lang');
             const storedLang = localStorage.getItem('selectedLanguage');
-            const currentLang = urlLang || storedLang || 'tr';
+
+            // Priority: Argument > URL > Stored > Default 'tr'
+            let currentLang = lang || urlLang || storedLang || 'tr';
+
+            if (lang) {
+                localStorage.setItem('selectedLanguage', lang);
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('lang', lang);
+                window.history.pushState({}, '', newUrl);
+                currentLang = lang;
+            } else if (urlLang) {
+                localStorage.setItem('selectedLanguage', urlLang);
+            }
 
             document.querySelectorAll('[data-tr][data-en]').forEach(element => {
                 const text = currentLang === 'tr' ? element.dataset.tr : element.dataset.en;
@@ -156,19 +174,19 @@
                     element.textContent = text;
                 }
             });
+        }
 
-            if (urlLang) {
-                localStorage.setItem('selectedLanguage', urlLang);
-            }
+        function changeLang(lang) {
+            updateTranslations(lang);
         }
 
         updateTranslations();
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', updateTranslations);
+            document.addEventListener('DOMContentLoaded', () => updateTranslations());
         }
         window.addEventListener('storage', (e) => {
             if (e.key === 'selectedLanguage') {
-                updateTranslations();
+                updateTranslations(e.newValue);
             }
         });
     </script>
