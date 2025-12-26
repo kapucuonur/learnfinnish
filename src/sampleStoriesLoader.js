@@ -3,6 +3,7 @@
 
 import sampleStories from './data/sampleStories.js';
 import { kelimeyiCevir } from './services/api.js';
+import { deftereEkle } from './services/storage.js';
 
 // Initialize sample stories display
 function initSampleStories() {
