@@ -34,6 +34,15 @@ export function updateTranslations(lang = currentLanguage) {
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+
+    // Update blog link with language parameter
+    const blogLink = document.querySelector('a[href="/blog/"]');
+    if (blogLink) {
+        blogLink.href = `/blog/?lang=${lang}`;
+    }
+
+    // Save language preference to localStorage for blog page
+    localStorage.setItem('selectedLanguage', lang);
 }
 
 // Get current language
