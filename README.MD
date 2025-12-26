@@ -47,7 +47,9 @@ _Fully responsive design optimized for all devices_
 ### Core Features
 
 - 📚 **AI-Generated Stories** - Create personalized Finnish stories on any topic
-- 🔍 **Context-Aware Translation** - Click any word for intelligent translation based on sentence context
+- � **Sample Stories** - 10 ready-made B1-level Finnish stories with interactive features
+- 📝 **Educational Blog** - 5 comprehensive articles (3000+ words) covering Finnish learning essentials
+- � **Context-Aware Translation** - Click any word for intelligent translation based on sentence context
 - 📖 **Word Notebook** - Save and manage your learned vocabulary
 - 🎴 **Flashcard Practice** - Study saved words with interactive flashcards
 - 💬 **Help Chatbot** - Get instant assistance while learning
@@ -56,6 +58,30 @@ _Fully responsive design optimized for all devices_
 - 📄 **Legal Pages** - Complete About, Contact, Privacy Policy, and Terms of Service
 - 📱 **Progressive Web App** - Install and use offline
 - 🎨 **Responsive Design** - Optimized for mobile, tablet, and desktop
+
+### Sample Stories (New!)
+
+10 interactive B1-level Finnish stories covering:
+- Finnish culture (Sauna, Traditions)
+- Seasons (Winter, Autumn, Summer)
+- Daily life (Shopping, Work, Coffee breaks)
+- Family celebrations
+- Nature and outdoor activities
+
+Each story features:
+- Word-by-word translation
+- Add to notebook functionality
+- Flashcard integration
+- ~200 words of authentic Finnish text
+
+### Educational Blog (New!)
+
+5 SEO-optimized articles covering:
+1. **Finnish Alphabet & Pronunciation** - Complete guide to Finnish sounds
+2. **Essential Vocabulary** - 100+ must-know Finnish words
+3. **Grammar Basics** - Understanding Finnish case system (15 cases)
+4. **Daily Phrases** - Practical expressions for everyday situations
+5. **Culture & Learning Tips** - Finnish culture and effective learning strategies
 
 ### Premium Features
 
@@ -75,46 +101,63 @@ _Fully responsive design optimized for all devices_
 ### Professional `/src` Structure
 
 ```
-/src
-├── /assets          # Static assets (images, icons, fonts)
-├── /components      # Reusable UI components (10 total)
-│   ├── AuthSection.js
-│   ├── Chatbot.js
-│   ├── Flashcard.js
-│   ├── LanguageSwitcher.js
-│   ├── PremiumCard.js
-│   ├── PWAInstall.js
-│   ├── StoryDisplay.js
-│   ├── ThemeToggle.js
-│   ├── UsageLimitModal.js
-│   └── WordNotebook.js
-├── /config          # Configuration files
-│   ├── constants.js
-│   └── firebase.js
-├── /pages           # Legal & informational pages
-│   ├── About.js
-│   ├── Contact.js
-│   ├── Privacy.js
-│   └── Terms.js
-├── /services        # Business logic & API calls (6 total)
-│   ├── api.js
-│   ├── auth.js
-│   ├── chatbot.js
-│   ├── payment.js
-│   ├── storage.js
-│   └── theme.js
-├── /styles          # Modular CSS with design system
-│   ├── main.css
-│   ├── variables.css
-│   ├── reset.css
-│   ├── responsive.css
-│   ├── /components
-│   └── /layouts
-├── /utils           # Helper functions
-│   ├── dom.js
-│   └── i18n.js
-├── router.js        # SPA routing for pages
-└── main.js          # Application entry point
+/
+├── /blog                # SEO-optimized blog articles
+│   ├── index.html
+│   ├── blog-styles.css
+│   ├── fince-alfabe-telaffuz.html
+│   ├── temel-fince-kelimeler.html
+│   ├── fince-gramer-durum-ekleri.html
+│   ├── gunluk-fince-ifadeler.html
+│   └── finlandiya-kulturu-dil.html
+├── /src
+│   ├── /assets          # Static assets (images, icons, fonts)
+│   ├── /components      # Reusable UI components (10 total)
+│   │   ├── AuthSection.js
+│   │   ├── Chatbot.js
+│   │   ├── Flashcard.js
+│   │   ├── LanguageSwitcher.js
+│   │   ├── PremiumCard.js
+│   │   ├── PWAInstall.js
+│   │   ├── StoryDisplay.js
+│   │   ├── ThemeToggle.js
+│   │   ├── UsageLimitModal.js
+│   │   └── WordNotebook.js
+│   ├── /config          # Configuration files
+│   │   ├── constants.js
+│   │   └── firebase.js
+│   ├── /data            # Story data (New!)
+│   │   └── sampleStories.js
+│   ├── /pages           # Legal & informational pages
+│   │   ├── About.js
+│   │   ├── Contact.js
+│   │   ├── Privacy.js
+│   │   └── Terms.js
+│   ├── /services        # Business logic & API calls (6 total)
+│   │   ├── api.js
+│   │   ├── auth.js
+│   │   ├── chatbot.js
+│   │   ├── payment.js
+│   │   ├── storage.js
+│   │   └── theme.js
+│   ├── /styles          # Modular CSS with design system
+│   │   ├── main.css
+│   │   ├── variables.css
+│   │   ├── reset.css
+│   │   ├── responsive.css
+│   │   ├── /components
+│   │   │   ├── sample-stories.css (New!)
+│   │   │   └── ...
+│   │   └── /layouts
+│   ├── /utils           # Helper functions
+│   │   ├── dom.js
+│   │   └── i18n.js
+│   ├── router.js        # SPA routing for pages
+│   ├── sampleStoriesLoader.js  # Sample stories loader (New!)
+│   └── main.js          # Application entry point
+├── sitemap.xml          # SEO sitemap (New!)
+├── robots.txt           # Search engine instructions (New!)
+└── index.html           # Main entry point
 ```
 
 ### Design System
@@ -210,6 +253,7 @@ The app is configured for Vercel with:
 ### Monetization
 
 - **Google AdSense** - Ad integration for free tier users
+- **Educational Content** - Blog articles and sample stories for SEO and user value
 
 ## 📱 Progressive Web App
 
