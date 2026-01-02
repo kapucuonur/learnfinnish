@@ -9,6 +9,10 @@ function initSampleStories() {
   const grid = document.getElementById('sample-stories-grid');
   if (!grid) return;
 
+  // 👇 BU SATIR EKLENDİ:
+  // Önce içerideki "Yükleniyor..." (Starting up...) yazısını temizle, sonra kartları ekle.
+  grid.innerHTML = '';
+
   // Create story cards
   sampleStories.forEach(story => {
     const card = createStoryCard(story);
