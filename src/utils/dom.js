@@ -7,14 +7,37 @@ const translationContent = document.getElementById('translation-content');
 const closeBtn = document.getElementById('close-popup');
 const overlay = document.querySelector('.overlay');
 
+const voices = [];
+function loadVoices() {
+  const allVoices = speechSynthesis.getVoices();
+  if (allVoices.length > 0) {
+    voices.length = 0;
+    voices.push(...allVoices);
+  }
+}
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
 function speakText(text) {
   if ('speechSynthesis' in window) {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'fi-FI';
-    utterance.rate = 0.9;
+    utterance.rate = 0.85; // Slightly slower for better clarity
     utterance.pitch = 1;
     utterance.volume = 1;
+
+    // Try to find a high quality Finnish voice
+    if (voices.length === 0) loadVoices();
+
+    const finnishVoice = voices.find(v => v.lang === 'fi-FI' && v.name.includes('Google')) ||
+      voices.find(v => v.lang === 'fi-FI' && v.name.includes('Suomi')) ||
+      voices.find(v => v.lang === 'fi-FI');
+
+    if (finnishVoice) {
+      utterance.voice = finnishVoice;
+    }
+
     speechSynthesis.speak(utterance);
   }
 }
