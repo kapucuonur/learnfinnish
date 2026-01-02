@@ -19,32 +19,38 @@ function sesliOku(metin) {
   }
 }
 
-export function hikayeYaz(metin) {
+export function hikayeYaz(metin, targetElement = hikayeAlani) {
   const parts = metin.split(/(\s+|[.,!?;:()"'-])/).filter(p => p !== '');
 
-  hikayeAlani.innerHTML = '';
+  targetElement.innerHTML = '';
 
   parts.forEach(part => {
     if (/^\s+$|[.,!?;:()"'-]/.test(part)) {
-      hikayeAlani.appendChild(document.createTextNode(part));
+      if (part.includes('\n')) {
+        targetElement.appendChild(document.createElement('br'));
+        if (part.split('\n').length > 2) targetElement.appendChild(document.createElement('br')); // Double break for multiple newlines
+      } else {
+        targetElement.appendChild(document.createTextNode(part));
+      }
     } else {
       const span = document.createElement('span');
       span.className = 'kelime';
       span.textContent = part;
 
-      // Çift tıkla sadece kelimeyi oku
+      // Double click to read word only
       span.addEventListener('dblclick', (e) => {
         e.stopPropagation();
         sesliOku(part.trim());
       });
 
-      hikayeAlani.appendChild(span);
+      targetElement.appendChild(span);
     }
   });
 
-  // Hikayeyi tamamen oku butonu
+  // Read full story button
   const okuButon = document.createElement('button');
-  okuButon.textContent = 'Hikayeyi Sesli Oku';
+  okuButon.textContent = '🔊 Read Story Aloud';
+  okuButon.className = 'read-story-btn';
   okuButon.style.marginTop = '30px';
   okuButon.style.padding = '12px 24px';
   okuButon.style.background = '#006064';
@@ -56,11 +62,11 @@ export function hikayeYaz(metin) {
   okuButon.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
   okuButon.onclick = () => sesliOku(metin);
 
-  hikayeAlani.appendChild(document.createElement('br'));
-  hikayeAlani.appendChild(okuButon);
+  targetElement.appendChild(document.createElement('br'));
+  targetElement.appendChild(okuButon);
 }
 
-export function kelimeEventiEkle(hedefDil = 'tr') {
+export function kelimeEventiEkle(hedefDil = 'en') {
   document.querySelectorAll('.kelime').forEach(kelime => {
     kelime.onclick = async (event) => {
       const original = kelime.textContent.trim();

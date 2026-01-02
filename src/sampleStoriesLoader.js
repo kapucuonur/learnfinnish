@@ -2,7 +2,7 @@
 // Loads and displays sample stories on the main page
 
 import sampleStories from './data/sampleStories.js';
-import { kelimeyiCevir } from './services/api.js';
+import { hikayeYaz, kelimeEventiEkle } from './utils/dom.js';
 
 // Initialize sample stories display
 function initSampleStories() {
@@ -85,58 +85,14 @@ function loadSampleStory(story) {
   `;
     storyArea.appendChild(header);
 
-    // Split story into sentences
-    const sentences = story.story.split(/(?<=[.!?])\s+/);
+    // Create container for text
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'story-content';
+    storyArea.appendChild(contentDiv);
 
-    // Create story content
-    const content = document.createElement('div');
-    content.className = 'story-content';
-
-    sentences.forEach((sentence, index) => {
-        const p = document.createElement('p');
-        p.className = 'story-sentence';
-
-        // Split sentence into words
-        const words = sentence.split(/\s+/);
-
-        words.forEach((word, wordIndex) => {
-            const span = document.createElement('span');
-            span.className = 'story-word';
-            span.textContent = word;
-            span.dataset.word = word.replace(/[.,!?;:"']/g, '').toLowerCase();
-
-            // Add click handler for translation
-            span.addEventListener('click', async function () {
-                if (this.classList.contains('translated')) {
-                    this.classList.remove('translated');
-                    this.removeAttribute('data-translation');
-                    return;
-                }
-
-                // Call translation API
-                const cleanWord = this.dataset.word;
-                const currentLang = 'en';
-
-                try {
-                    // Use existing Google Translate API
-                    const translation = await kelimeyiCevir(cleanWord, currentLang, sentence);
-                    this.dataset.translation = translation;
-                    this.classList.add('translated');
-                } catch (error) {
-                    console.error('Translation error:', error);
-                }
-            });
-
-            p.appendChild(span);
-            if (wordIndex < words.length - 1) {
-                p.appendChild(document.createTextNode(' '));
-            }
-        });
-
-        content.appendChild(p);
-    });
-
-    storyArea.appendChild(content);
+    // Use shared DOM logic to render text with context-aware click events
+    hikayeYaz(story.story, contentDiv);
+    kelimeEventiEkle('en');
 
     // Scroll to story area smoothly after content loads
     setTimeout(() => {
