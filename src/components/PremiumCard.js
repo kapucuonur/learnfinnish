@@ -1,6 +1,6 @@
 // Premium Card Component
 import { createCheckoutSession } from '../services/payment.js';
-import { getCurrentLang } from './LanguageSwitcher.js';
+
 
 export function initPremiumCard() {
     const premiumBtn = document.getElementById('premium-btn');
@@ -10,7 +10,7 @@ export function initPremiumCard() {
     // Premium button click handler
     if (premiumBtn) {
         premiumBtn.addEventListener('click', async () => {
-            const currentLang = getCurrentLang();
+            const currentLang = 'en';
             const result = await createCheckoutSession(currentLang);
 
             if (!result.success && result.error) {

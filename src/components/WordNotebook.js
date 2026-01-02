@@ -1,6 +1,6 @@
 // Word Notebook Component
 import { renderWordList, clearNotebook } from '../services/storage.js';
-import { getCurrentLang } from './LanguageSwitcher.js';
+
 import { initFlashcards, reloadFlashcards } from './Flashcard.js';
 
 export function initTabs() {
@@ -51,10 +51,7 @@ export function initNotebookClear() {
     if (!clearBtn) return;
 
     clearBtn.addEventListener('click', () => {
-        const currentLang = getCurrentLang();
-        const confirmMsg = currentLang === 'tr'
-            ? 'Defterdeki tüm kelimeleri silmek istediğine emin misin?'
-            : 'Are you sure you want to clear all words from your notebook?';
+        const confirmMsg = 'Are you sure you want to clear all words from your notebook?';
 
         if (confirm(confirmMsg)) {
             clearNotebook();
