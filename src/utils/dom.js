@@ -61,8 +61,8 @@ class GoogleTTSPlayer {
 
     const text = this.queue[this.currentIndex];
     const encodedText = encodeURIComponent(text);
-    // Use Google Translate TTS endpoint
-    this.audio.src = `https://translate.google.com/translate_tts?ie=UTF-8&tl=fi&client=tw-ob&q=${encodedText}`;
+    // Use our internal proxy to avoid CORs/Blocking issues
+    this.audio.src = `/api/tts?text=${encodedText}`;
     this.audio.play().catch(e => console.error('Play error:', e));
     this.currentIndex++;
   }
@@ -106,8 +106,8 @@ class GoogleTTSPlayer {
 const ttsPlayer = new GoogleTTSPlayer();
 
 function speakText(text) {
-  // Simple direct playback for single words
-  const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=fi&client=tw-ob&q=${encodeURIComponent(text)}`);
+  // Simple direct playback for single words using proxy
+  const audio = new Audio(`/api/tts?text=${encodeURIComponent(text)}`);
   audio.play();
 }
 
