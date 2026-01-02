@@ -1,8 +1,6 @@
 // Word Notebook Component
 import { renderWordList, clearNotebook } from '../services/storage.js';
 
-import { initFlashcards, reloadFlashcards } from './Flashcard.js';
-
 export function initTabs() {
     const tabHikaye = document.getElementById('tab-hikaye');
     const tabFlashcard = document.getElementById('tab-flashcard');
@@ -29,9 +27,6 @@ export function initTabs() {
         hikayeAlani.classList.add('hidden');
         flashcardAlani.classList.remove('hidden');
         defterAlani.classList.add('hidden');
-
-        // Initialize flashcards when tab is opened
-        initFlashcards();
     });
 
     tabDefter.addEventListener('click', () => {
@@ -56,8 +51,6 @@ export function initNotebookClear() {
         if (confirm(confirmMsg)) {
             clearNotebook();
             renderWordList();
-            // Reload flashcards after clearing notebook
-            reloadFlashcards();
         }
     });
 }
