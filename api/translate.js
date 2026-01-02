@@ -22,7 +22,7 @@ Rules:
 - Just the word's meaning, nothing else
 
 Translation:`
-      : `Translate this Finnish word to ${targetLanguage}: "${kelime}"
+      : `Translate this Finnish word to ${targetLanguage}: "${text}"
 
 Provide ONLY the translation (1-3 words maximum), nothing else.
 

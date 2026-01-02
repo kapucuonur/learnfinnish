@@ -1,4 +1,4 @@
-const CACHE_NAME = 'learnfinnish-v2';
+const CACHE_NAME = 'learnfinnish-v3';
 const urlsToCache = [
   '/',
   '/index.html',
