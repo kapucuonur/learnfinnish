@@ -129,7 +129,7 @@ export class Router {
         <div class="footer-links">
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
-          <a href="#privacy">Privacy Policy</a>
+          <a href="#privacy">Privacy</a>
           <a href="#terms">Terms of Service</a>
         </div>
         <div class="footer-copy">
