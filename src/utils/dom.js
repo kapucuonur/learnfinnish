@@ -107,7 +107,7 @@ const ttsPlayer = new GoogleTTSPlayer();
 
 function speakText(text) {
   // Simple direct playback for single words
-  const audio = new Audio(\`https://translate.google.com/translate_tts?ie=UTF-8&tl=fi&client=tw-ob&q=\${encodeURIComponent(text)}\`);
+  const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=fi&client=tw-ob&q=${encodeURIComponent(text)}`);
   audio.play();
 }
 
@@ -161,10 +161,10 @@ export function writeStory(text, targetElement = storyArea) {
     btn.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
     btn.style.transition = 'all 0.2s';
     btn.onclick = onClick;
-    
-    btn.onmouseover = () => { if(!btn.disabled) btn.style.transform = 'translateY(-2px)'; };
-    btn.onmouseout = () => { if(!btn.disabled) btn.style.transform = 'translateY(0)'; };
-    
+
+    btn.onmouseover = () => { if (!btn.disabled) btn.style.transform = 'translateY(-2px)'; };
+    btn.onmouseout = () => { if (!btn.disabled) btn.style.transform = 'translateY(0)'; };
+
     return btn;
   };
 
@@ -229,18 +229,18 @@ export function addWordEvents(targetLang = 'en') {
 
       // Position popup near the clicked word
       popup.style.position = 'absolute';
-      popup.style.top = `${ rect.bottom + scrollTop + 10 }px`;
-      popup.style.left = `${ rect.left + scrollLeft }px`;
+      popup.style.top = `${rect.bottom + scrollTop + 10}px`;
+      popup.style.left = `${rect.left + scrollLeft}px`;
       popup.style.transform = 'none';
 
       // Adjust if popup goes off-screen
       setTimeout(() => {
         const popupRect = popup.getBoundingClientRect();
         if (popupRect.right > window.innerWidth) {
-          popup.style.left = `${ window.innerWidth - popupRect.width - 20 }px`;
+          popup.style.left = `${window.innerWidth - popupRect.width - 20}px`;
         }
         if (popupRect.bottom > window.innerHeight + scrollTop) {
-          popup.style.top = `${ rect.top + scrollTop - popupRect.height - 10 }px`;
+          popup.style.top = `${rect.top + scrollTop - popupRect.height - 10}px`;
         }
       }, 10);
 
