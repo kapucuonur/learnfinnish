@@ -221,7 +221,7 @@ export function addWordEvents(targetLang = 'en') {
       const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
       // Popup open and loading message
-      translationContent.innerHTML = `< div style = "padding: 20px 0; font-size: 1.1em;" > Translating...</div > `;
+      translationContent.innerHTML = `<div style="padding: 20px 0; font-size: 1.1em;">Translating...</div>`;
       popup.classList.remove('hidden');
       overlay.classList.remove('hidden');
 
@@ -362,14 +362,18 @@ export function addWordEvents(targetLang = 'en') {
 }
 
 // Popup kapatma
-closeBtn.onclick = () => {
-  popup.classList.add('hidden');
-  overlay.classList.add('hidden');
-  speechSynthesis.cancel();
-};
+if (closeBtn) {
+  closeBtn.onclick = () => {
+    if (popup) popup.classList.add('hidden');
+    if (overlay) overlay.classList.add('hidden');
+    speechSynthesis.cancel();
+  };
+}
 
-overlay.onclick = () => {
-  popup.classList.add('hidden');
-  overlay.classList.add('hidden');
-  speechSynthesis.cancel();
-};
+if (overlay) {
+  overlay.onclick = () => {
+    if (popup) popup.classList.add('hidden');
+    if (overlay) overlay.classList.add('hidden');
+    speechSynthesis.cancel();
+  };
+}
