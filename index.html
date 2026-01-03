@@ -9,6 +9,11 @@
   <meta name="description"
     content="Learn Finnish easily with AI-generated stories, flashcards, and vocabulary tools. Improve your Finnish reading and comprehension skills for free.">
 
+  <!-- Prevent Caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -271,15 +276,7 @@
   <div class="overlay hidden"></div>
 
   <script src="https://js.stripe.com/v3/"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(reg => console.log('Service Worker registered', reg))
-          .catch(err => console.log('Service Worker error', err));
-      });
-    }
-  </script>
+
   <script type="module" src="/src/app.js"></script>
   <script type="module" src="/src/sampleStoriesLoader.js"></script>
   <div id="cookie-banner"
