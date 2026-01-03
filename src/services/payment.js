@@ -19,6 +19,13 @@ export function initializeStripe(publishableKey) {
 // Check if user is premium
 export async function checkPremiumStatus(userId) {
   try {
+    // Admin bypass
+    const currentUser = auth.currentUser;
+    if (currentUser && currentUser.email === 'onurbenn@gmail.com') {
+      console.log('Admin access granted');
+      return true;
+    }
+
     const userDoc = await getDoc(doc(db, 'users', userId));
     if (userDoc.exists()) {
       return userDoc.data().isPremium || false;
