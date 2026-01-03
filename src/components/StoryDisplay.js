@@ -103,4 +103,6 @@ async function updateUsageIndicators() {
 }
 
 // Export for use in main.js
+// Alias initStoryControls to initStoryDisplay for backward compatibility/cache safety
+export const initStoryControls = initStoryDisplay;
 export { updateUsageIndicators };
