@@ -3,7 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- iOS Safari Optimizations -->
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
   <title>LearnFinnish - Learn Finnish with AI Stories</title>
 
   <meta name="description"
@@ -25,10 +32,49 @@
 
   <meta name="google-adsense-account" content="ca-pub-8564523171067091">
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8564523171067091"
-    crossorigin="anonymous"></script>
+  <!-- iOS Safari Emergency Fix -->
+  <script>
+    // iOS Safari için acil düzeltme
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
+    if (isIOS) {
+      // Service Worker'ı kaldır
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(reg => reg.unregister());
+        });
+      }
 
+      // Cache'i temizle
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => caches.delete(name));
+        });
+      }
+
+      // iOS viewport height fix
+      const setVh = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      };
+
+      setVh();
+      window.addEventListener('resize', setVh);
+      window.addEventListener('orientationchange', setVh);
+    }
+  </script>
+
+  <!-- AdSense - Lazy Load -->
+  <script>
+    window.addEventListener('load', function () {
+      const adsScript = document.createElement('script');
+      adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8564523171067091';
+      adsScript.async = true;
+      adsScript.crossOrigin = 'anonymous';
+      adsScript.onerror = function () { console.log('Ads blocked or failed'); };
+      document.head.appendChild(adsScript);
+    });
+  </script>
 </head>
 
 <body>
@@ -61,9 +107,9 @@
         <div id="auth-section" class="auth-section">
           <div id="user-info" class="user-info hidden">
             <span id="user-name" class="user-name"></span>
-            <!-- TODO: Replace href="#" with your Stripe Customer Portal link from Stripe Dashboard > Settings -->
-            <a href="#" id="billing-portal-btn" class="btn btn-secondary btn-sm"
-              style="margin-right:5px; text-decoration:none;">Billing</a>
+            <a href="https://billing.stripe.com/p/login/YOUR_LOGIN_LINK" id="billing-portal-btn"
+              class="btn btn-secondary btn-sm" style="margin-right:5px; text-decoration:none;" target="_blank"
+              rel="noopener noreferrer">Billing</a>
             <button id="logout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
           </div>
           <button id="login-btn" class="btn btn-primary btn-sm">
@@ -94,6 +140,12 @@
           </div>
           <div class="controls" style="margin-top: 15px;"></div>
         </div>
+      </div>
+
+      <!-- AdSense Display Ad (Premium users won't see this) -->
+      <div class="ad-container" id="ad-top">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8564523171067091"
+          data-ad-slot="YOUR_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
       </div>
 
       <div class="sample-stories-section">
@@ -169,6 +221,12 @@
         </div>
       </div>
 
+      <!-- AdSense In-Feed Ad -->
+      <div class="ad-container" id="ad-middle">
+        <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-6t+ed+2i-1n-4w"
+          data-ad-client="ca-pub-8564523171067091" data-ad-slot="YOUR_AD_SLOT"></ins>
+      </div>
+
       <div class="support-section">
         <a href="https://buy.stripe.com/00waEX4D95ai0In6qv9oc00" target="_blank" rel="noopener noreferrer"
           class="btn btn-coffee btn-lg">
@@ -206,7 +264,7 @@
             </div>
             <div class="premium-feature">
               <span class="feature-icon">✨</span>
-              <span>Ad-free</span>
+              <span>Ad-free experience</span>
             </div>
           </div>
 
@@ -215,8 +273,8 @@
             🚀 Upgrade to Premium - €5.00/mo
           </a>
 
-          <a href="https://buy.stripe.com/00waEX4D95ai0In6qv9oc00" target="_blank" class="btn btn-premium btn-lg"
-            style="text-decoration:none; display:inline-block; line-height: 1.5;">
+          <a href="https://buy.stripe.com/00waEX4D95ai0In6qv9oc00" target="_blank" rel="noopener noreferrer"
+            class="btn btn-premium btn-lg" style="text-decoration:none; display:inline-block; line-height: 1.5;">
             ⭐ Start 7-Day Free Trial
           </a>
         </div>
@@ -241,8 +299,7 @@
           <a href="/contact.html" style="color: inherit; text-decoration: none; margin: 0 10px;">Contact</a>
           <a href="/terms.html" style="color: inherit; text-decoration: none; margin: 0 10px;">Terms of Service</a>
           <a href="/refund-policy.html" style="color: inherit; text-decoration: none; margin: 0 10px;">Refund Policy</a>
-          <a href="/privacy.html" target="_blank" style="color: inherit; text-decoration: none; margin: 0 10px;">Privacy
-            Policy</a>
+          <a href="/privacy.html" style="color: inherit; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
         </div>
         <p class="footer-copyright">
           © 2026 LearnFinnish • Operated by Onur Kapucu <br>
@@ -275,14 +332,24 @@
 
   <div class="overlay hidden"></div>
 
-  <script src="https://js.stripe.com/v3/"></script>
+  <!-- Stripe - Lazy Load -->
+  <script>
+    window.addEventListener('load', function () {
+      const stripeScript = document.createElement('script');
+      stripeScript.src = 'https://js.stripe.com/v3/';
+      document.head.appendChild(stripeScript);
+    });
+  </script>
 
   <script type="module" src="/src/app.js"></script>
   <script type="module" src="/src/sampleStoriesLoader.js"></script>
+
+  <!-- Cookie Banner -->
   <div id="cookie-banner"
     style="position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: #fff; padding: 15px; text-align: center; z-index: 1000; display: none;">
     <p style="display: inline-block; margin: 0 10px 0 0;">
-      We use cookies for analytics, ads, and payments. By using our site, you agree to our policies.
+      We use cookies for analytics, ads, and payments. By using our site, you agree to our
+      <a href="/privacy.html" style="color: #4fc3f7; text-decoration: underline;">Privacy Policy</a>.
     </p>
     <button id="accept-cookies"
       style="background: #006064; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px;">Accept</button>
@@ -297,10 +364,9 @@
       document.getElementById('cookie-banner').style.display = 'none';
     });
   </script>
+
+  <!-- Emergency Cache Clear -->
   <script>
-    // 🚑 EMERGENCY CACHE CLEAR & SERVICE WORKER KILLER
-    // This script fixes the "App only works in Incognito" issue by removing the old offline cache.
-    // AUTOMATIC MODE: Runs on every page load
     async function nukeCache() {
       console.log('💥 NUKING CACHE...');
 
@@ -328,7 +394,7 @@
       window.location.reload(true);
     }
 
-    // MANUAL MODE: Triple Click on Logo
+    // Triple Click on Logo to reset
     let clickCount = 0;
     const logo = document.querySelector('.app-logo');
     if (logo) {
@@ -341,12 +407,11 @@
           nukeCache();
           clickCount = 0;
         }
-        // Reset counter after 1 second
         setTimeout(() => clickCount = 0, 1000);
       });
     }
 
-    // Run automatic cleanup silently
+    // Automatic cleanup (silent)
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
@@ -354,6 +419,45 @@
         }
       });
     }
+  </script>
+
+  <!-- AdSense Initialization -->
+  <script>
+    window.addEventListener('load', function () {
+      // Premium kontrolü yapılacak
+      setTimeout(function () {
+        const isPremium = document.body.classList.contains('premium');
+
+        if (!isPremium) {
+          try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          } catch (e) {
+            console.log('AdSense not loaded:', e);
+          }
+        } else {
+          // Premium kullanıcılar için reklamları gizle
+          document.querySelectorAll('.ad-container').forEach(ad => {
+            ad.style.display = 'none';
+          });
+        }
+      }, 1000);
+    });
+  </script>
+
+  <!-- Global Error Handler -->
+  <script>
+    window.addEventListener('error', function (e) {
+      console.error('Global Error:', e.error);
+
+      // iOS'ta kritik hata olursa cache temizle
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        if (e.error && e.error.message && e.error.message.includes('SecurityError')) {
+          localStorage.clear();
+          sessionStorage.clear();
+          location.reload();
+        }
+      }
+    });
   </script>
 </body>
 
