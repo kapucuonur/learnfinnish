@@ -6,7 +6,30 @@
 @import url('./variables.css');
 @import url('./reset.css');
 
-/* Layout Styles */
+/* Loading Spinner */
+.loading-state {
+    text-align: center;
+    padding: 20px;
+    color: var(--color-text-secondary);
+}
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(0, 96, 100, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Base Styles */
 @import url('./layouts/container.css');
 
 /* Component Styles */

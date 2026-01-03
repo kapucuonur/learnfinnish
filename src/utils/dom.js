@@ -221,7 +221,12 @@ export function addWordEvents(targetLang = 'en') {
       const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
       // Popup open and loading message
-      translationContent.innerHTML = `<div style="padding: 20px 0; font-size: 1.1em;">Translating...</div>`;
+      translationContent.innerHTML = `
+        <div class="loading-state">
+           <div class="spinner"></div>
+           <p>Translating <strong>${original}</strong>...</p>
+        </div>
+      `;
       popup.classList.remove('hidden');
       overlay.classList.remove('hidden');
 
