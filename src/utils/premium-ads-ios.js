@@ -31,12 +31,28 @@ async function initializeAds() {
     const isPremium = await checkPremiumStatus();
 
     if (isPremium) {
-        // Premium kullanıcılar için reklamları gizle
+        // Premium kullanıcılar için reklamları ve promosyonları gizle
         document.body.classList.add('premium');
+
+        // Hide Ads
         document.querySelectorAll('.ad-container, .adsbygoogle').forEach(ad => {
             ad.style.display = 'none';
         });
-        console.log('✨ Premium user - ads hidden');
+
+        // Hide Premium Upsells
+        const promoSelectors = [
+            '.support-section',
+            '#premium-banner',
+            '.footer-content' // Hides footer promo text/button
+        ];
+
+        promoSelectors.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                el.style.display = 'none';
+            });
+        });
+
+        console.log('✨ Premium user - ads and upsells hidden');
         return;
     }
 
@@ -46,7 +62,8 @@ async function initializeAds() {
         if (typeof adsbygoogle !== 'undefined') {
             // Her ad container için push
             document.querySelectorAll('.adsbygoogle').forEach(ad => {
-                if (!ad.hasAttribute('data-ad-pushed')) {
+                // Check if we pushed already OR if Google processed it (status=done)
+                if (!ad.hasAttribute('data-ad-pushed') && ad.getAttribute('data-adsbygoogle-status') !== 'done') {
                     (adsbygoogle = window.adsbygoogle || []).push({});
                     ad.setAttribute('data-ad-pushed', 'true');
                 }
@@ -58,7 +75,12 @@ async function initializeAds() {
             setTimeout(initializeAds, 1000);
         }
     } catch (error) {
-        console.error('AdSense error:', error);
+        // Ignore duplicate push errors gracefully
+        if (error.message && error.message.includes('adsbygoogle.push')) {
+            console.log('ℹ️ AdSense already loaded for some slots');
+        } else {
+            console.error('AdSense error:', error);
+        }
     }
 }
 

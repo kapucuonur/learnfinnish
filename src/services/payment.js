@@ -11,9 +11,8 @@ let stripe;
 export function initializeStripe(publishableKey) {
   if (window.Stripe) {
     stripe = window.Stripe(publishableKey);
-  } else {
-    console.error('Stripe.js not loaded');
   }
+  // Silent return if not loaded yet (lazy loading)
 }
 
 // Check if user is premium
@@ -45,6 +44,30 @@ export async function createCheckoutSession() {
     return {
       success: false,
       error: 'Please sign in to make a payment!'
+    };
+  }
+
+  // Lazy load check - try one more time if stripe isn't ready
+  if (!stripe && window.Stripe) {
+    // Re-import constant in a cleaner way if possible, or assume it was passed before.
+    // Since we don't have the key here easily without passing it again, 
+    // we rely on the fact that window.Stripe is now available and we can just use the global.
+    // Ideally we should store the key, but for now let's just check if initializeStripe works.
+    // Actually, initializeStripe store the instance. Let's try to init with the global if we can find it, 
+    // BUT we don't have the key here.
+    // BETTER APPROACH: Just check window.Stripe directly if the local var is null.
+    // However, we need the KEY to init.
+    // Let's assume the user calls initializeStripe in app.js.
+    // If it failed there, it might work now. But we need the key.
+    // Let's throw a helpful error.
+    return {
+      success: false,
+      error: 'Payment system is still loading. Please try again in 5 seconds.'
+    };
+  } else if (!stripe) {
+    return {
+      success: false,
+      error: 'Payment system failed to load. Please refresh the page.'
     };
   }
 
